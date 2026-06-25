@@ -1,16 +1,15 @@
 # Economic Networks Summer School
 
-Materials for the tutorial session — **Thursday 25 June, Oxford**.
+Materials for the tutorial session, **Thursday 25 June, Oxford**.
 
-We build networks from multivariate daily futures data (equity index, FX, rates, commodities) and use them to forecast volatility. Read the background note first, then work through the notebook.
+We build networks from multivariate daily futures data (equity index, FX, rates, commodities) and use them to forecast volatility. Work through the files in order.
 
 ## Contents
 
 | File | What it is |
 |------|------------|
-| `background.md` | Short primer — volatility, the forecasting problem, and the methods. Read before the session. |
-| `tutorial.ipynb` | The tutorial: correlation matrix → thresholded networks → a toy GCN forecast. |
-| `tutorial.pdf` | Rendered copy of the notebook, for reading offline. |
+| `01_background.md` | Short primer: volatility, the forecasting problem, and the methods. Read this first. |
+| `02_tutorial.ipynb` | The tutorial: correlation matrix, thresholded networks, then a toy GCN forecast. |
 | `merged_multivariate.csv` | Daily OHLC, volume and Parkinson volatility per asset, from 2008. |
 
 ## Running it
@@ -21,7 +20,7 @@ The notebook expects `merged_multivariate.csv` in the same folder. You'll need:
 pandas  numpy  matplotlib  networkx  torch  torch_geometric
 ```
 
-Either run locally or open `tutorial.ipynb` in Colab.
+Either run locally or open `02_tutorial.ipynb` in Colab.
 
 ## Exercises
 
