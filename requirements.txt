@@ -3,6 +3,7 @@ numpy
 matplotlib
 networkx
 scipy
+scikit-learn
 torch
 torch_geometric
 jupyterlab
