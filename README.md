@@ -32,13 +32,9 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-Then launch the notebook:
+Then open `02_tutorial.ipynb` in VS Code, click **Select Kernel** at the top right, pick the `.venv` environment, and run the cells. It expects `merged_multivariate.csv` in the same folder.
 
-```bash
-jupyter lab 02_tutorial.ipynb
-```
-
-It expects `merged_multivariate.csv` in the same folder. If you'd rather not install anything, open `02_tutorial.ipynb` in Colab instead.
+If you'd rather not install anything, open `02_tutorial.ipynb` in Colab instead.
 
 ## Exercises
 
