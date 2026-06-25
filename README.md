@@ -12,15 +12,33 @@ We build networks from multivariate daily futures data (equity index, FX, rates,
 | `02_tutorial.ipynb` | The tutorial: correlation matrix, thresholded networks, then a toy GCN forecast. |
 | `merged_multivariate.csv` | Daily OHLC, volume and Parkinson volatility per asset, from 2008. |
 
-## Running it
+## Setup
 
-The notebook expects `merged_multivariate.csv` in the same folder. You'll need:
+Download or clone the folder, open it in your editor (VS Code works well), then in the terminal create an environment and install the dependencies.
 
+**macOS / Linux**
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
-pandas  numpy  matplotlib  networkx  torch  torch_geometric
+
+**Windows (PowerShell)**
+
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
 ```
 
-Either run locally or open `02_tutorial.ipynb` in Colab.
+Then launch the notebook:
+
+```bash
+jupyter lab 02_tutorial.ipynb
+```
+
+It expects `merged_multivariate.csv` in the same folder. If you'd rather not install anything, open `02_tutorial.ipynb` in Colab instead.
 
 ## Exercises
 
