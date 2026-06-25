@@ -45,3 +45,10 @@ It expects `merged_multivariate.csv` in the same folder. If you'd rather not ins
 1. Pivot to a wide price table, compute the correlation matrix, look for hierarchical structure.
 2. Threshold the absolute correlations to build and visualise networks.
 3. **Challenge:** using a network from (2) on the training set, build a small Graph Convolutional Network to forecast daily Parkinson volatility.
+
+## Questions
+
+If you have any questions, get in touch with us:
+
+- George Nigmatulin, george.nigmatulin@eng.ox.ac.uk
+- Yaxuan Kong, yaxuan.kong@eng.ox.ac.uk
