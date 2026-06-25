@@ -36,6 +36,16 @@ Three steps, increasing in ambition.
 
 **Correlation matrix.** Pivot the prices into a wide table and correlate every asset with every other. Reorder by similarity and blocks appear: equity indices cluster together, currencies elsewhere, and so on. This is how you *see* the structure before modelling it.
 
+*How it's computed.* Pearson correlation between two assets X and Y is
+
+$$\rho_{XY} = \frac{\text{cov}(X, Y)}{\sigma_X \, \sigma_Y}$$
+
+their covariance divided by the product of their standard deviations. It runs from -1 (move exactly opposite) through 0 (unrelated) to +1 (move together). Do it for every pair and you have the matrix. In practice correlate the daily *returns*, not the raw prices, so trends don't fake a link.
+
 **Thresholded networks.** Keep a link between two assets only when their correlation is strong enough (above some threshold). Now you have a graph: assets are nodes, strong co-movements are edges. Slide the threshold and you trade density for clarity. At a high threshold only the market's skeleton survives. Build this on the training data, not the whole thing, or you're peeking at the future.
 
-**Graph Convolutional Network.** A neural net that forecasts each asset's volatility using not just its own past but its neighbours' state in the network. Each layer lets a node mix in information from whoever it's connected to, which is exactly the spillover idea made concrete. Ours is a toy: the goal is to feel the mechanism, not to ship a trading system.
+*How hierarchical clustering works.* Turn correlation into a distance (close assets, short distance). Start with every asset on its own, then repeatedly merge the two nearest groups, then the next nearest, and so on until everything is joined. The order of merges is a tree (a *dendrogram*): tight pairs join early and low, unrelated ones only at the top. Reorder the matrix by that tree and the blocks line up on the diagonal.
+
+**Graph Convolutional Network (GCN).** A neural net that forecasts each asset's volatility using not just its own past but its neighbours' state in the network. Each layer lets a node mix in information from whoever it's connected to, which is exactly the spillover idea made concrete. Ours is a toy: the goal is to feel the mechanism, not to ship a trading system.
+
+*How it works.* Each asset (node) starts with a feature vector, for example its recent volatility. One GCN layer updates every node by averaging its own features with its neighbours', then applying a small learned transform. Stack two layers and a node sees its neighbours' neighbours too, so information spreads along the network. Train it by comparing the predicted next-day volatility against what actually happened and nudging the weights to shrink that error.
