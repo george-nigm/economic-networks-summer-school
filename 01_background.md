@@ -48,4 +48,8 @@ their covariance divided by the product of their standard deviations. It runs fr
 
 **Graph Convolutional Network (GCN).** A neural net that forecasts each asset's volatility using not just its own past but its neighbours' state in the network. Each layer lets a node mix in information from whoever it's connected to, which is exactly the spillover idea made concrete. Ours is a toy: the goal is to feel the mechanism, not to ship a trading system.
 
-*How it works.* Each asset (node) starts with a feature vector, for example its recent volatility. One GCN layer updates every node by averaging its own features with its neighbours', then applying a small learned transform. Stack two layers and a node sees its neighbours' neighbours too, so information spreads along the network. Train it by comparing the predicted next-day volatility against what actually happened and nudging the weights to shrink that error.
+*How it works.* Each asset (node) starts with a feature vector, for example its recent volatility. One `GCNConv` layer is the Kipf–Welling rule:
+
+$$H^{(l+1)} = \sigma\Big(\underbrace{\tilde{D}^{-1/2}\,\tilde{A}\,\tilde{D}^{-1/2}}_{\text{average over neighbours}}\;\underbrace{H^{(l)}\,W^{(l)}}_{\text{linear transform}}\Big)$$
+
+Here $\tilde{A}=A+I$ is the adjacency matrix with self-loops added, $\tilde{D}$ is its degree matrix (so the left factor is just a normalised neighbour-average), $H^{(l)}$ are the node features at layer $l$, $W^{(l)}$ is the learned weight matrix, and $\sigma$ is a nonlinearity. In words: mix each node with its neighbours, apply a small learned transform, repeat. Stack two layers and a node sees its neighbours' neighbours too, so information spreads along the network. Train it by comparing the predicted next-day volatility against what actually happened and nudging the weights to shrink that error.
