@@ -34,8 +34,6 @@ pip install -r requirements.txt
 
 Then open `02_tutorial.ipynb` in VS Code, click **Select Kernel** at the top right, pick the `.venv` environment, and run the cells. It expects `merged_multivariate.csv` in the same folder.
 
-If you'd rather not install anything, open `02_tutorial.ipynb` in Colab instead.
-
 ## Exercises
 
 1. Pivot to a wide price table, compute the correlation matrix, look for hierarchical structure.
