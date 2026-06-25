@@ -40,7 +40,7 @@ Three steps, increasing in ambition.
 
 $$\rho_{XY} = \frac{\text{cov}(X, Y)}{\sigma_X \, \sigma_Y}$$
 
-their covariance divided by the product of their standard deviations. It runs from -1 (move exactly opposite) through 0 (unrelated) to +1 (move together). Do it for every pair and you have the matrix. In practice correlate the daily *returns*, not the raw prices, so trends don't fake a link.
+their covariance divided by the product of their standard deviations. It runs from -1 (move exactly opposite) through 0 (unrelated) to +1 (move together). Do it for every pair and you have the matrix. We correlate the price series here because the block structure shows up clearly on prices; once you're comfortable, try the same on daily returns and see how the picture changes.
 
 **Thresholded networks.** Keep a link between two assets only when their correlation is strong enough (above some threshold). Now you have a graph: assets are nodes, strong co-movements are edges. Slide the threshold and you trade density for clarity. At a high threshold only the market's skeleton survives. Build this on the training data, not the whole thing, or you're peeking at the future.
 
