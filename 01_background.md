@@ -22,11 +22,11 @@ One property matters above all: volatility clusters. Calm days follow calm days,
 
 We forecast volatility, not direction. Which way a price goes tomorrow is close to a coin flip. How *much* it will move is not, because of the clustering above. Volatility is also where the money and the risk actually live, so a good forecast feeds straight into decisions:
 
-* **Position sizing.** Keep risk roughly constant. Volatility goes up, cut the position; volatility falls, add to it. Most systematic funds run on this.
 * **Trading volatility directly with options.** Expect volatility to rise, buy options (for example a straddle: a call and a put together) and you profit from a big move either way. Expect calm, sell options and collect the premium.
-* **Pairs / stat-arb.** Two assets that usually move together drift apart, so buy the cheap one and sell the expensive one and bet they reconverge. This needs the correlations from the tutorial.
+* **Position sizing.** Keep risk roughly constant. Volatility goes up, cut the position; volatility falls, add to it. Most systematic funds run on this.
 * **Diversification.** Build a portfolio from weakly correlated assets so they don't all sink at once. The network shows you which assets are clustered and which stand alone.
 * **Risk and contagion.** Volatility spills over: shake one market and related ones follow. The network tells you who the central, risk-spreading nodes are.
+* **Pairs / stat-arb.** Two assets that usually move together drift apart, so buy the cheap one and sell the expensive one and bet they reconverge. This needs the correlations from the tutorial.
 
 The dataset is daily futures across asset classes (equity index, FX, rates, commodities). For our purposes each symbol is just a time series; the interesting part is how they hang together.
 
