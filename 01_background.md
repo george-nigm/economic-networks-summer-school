@@ -68,3 +68,16 @@ That is ES's hidden feature after one layer. (A second layer would repeat steps 
 $$\widehat{\text{ES}}_\text{tomorrow} = 0.27$$
 
 So ES read 0.20 today, yet the model forecasts about 0.27 tomorrow, pulled up because its neighbours are running hot. That upward nudge is the spillover the network exists to capture. Training just tweaks $W$ and the readout weights so these forecasts land as close as possible to what volatility actually does next.
+
+*Building it for this task.* A workable toy model is two stacked `GCNConv` layers followed by a readout:
+
+```
+GCNConv(in_features, hidden) -> ReLU -> GCNConv(hidden, hidden) -> ReLU -> Linear(hidden, 1)
+```
+
+- **Graph:** the thresholded network from Exercise 2, built on the training set, passed in as PyG `edge_index`.
+- **Node features:** each asset's recent volatility (e.g. the last few days), so `in_features` is that window length.
+- **Two `GCNConv` layers:** the first mixes in direct neighbours, the second reaches neighbours-of-neighbours, so information travels two hops across the network.
+- **Readout:** a `Linear(hidden, 1)` maps each node's hidden vector to a single number, its predicted next-day volatility.
+
+Train it with an MSE loss between the predictions and the true next-day volatility, using an optimiser like Adam. Two layers is the usual sweet spot: one is often too shallow to feel the network, and stacking many tends to blur every node into the same value (*over-smoothing*).
