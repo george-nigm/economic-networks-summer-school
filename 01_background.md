@@ -14,7 +14,7 @@ Parkinson volatility (the `vol` column in the data) fixes part of this by using 
 
 $$\sigma_P^2 = \frac{1}{4\ln 2}\left(\ln\frac{H}{L}\right)^2$$
 
-where H is the day's high and L is the day's low. The intraday range carries more information than the close alone, so the estimate is tighter for the same amount of data (roughly five times as efficient). It has blind spots: it misses overnight gaps and assumes no drift. For daily futures it does the job.
+where H is the day's high and L is the day's low. The intraday range carries more information than the close alone, so the estimate is tighter for the same amount of data (roughly five times as efficient).
 
 One property matters above all: volatility clusters. Calm days follow calm days, violent days follow violent days. That's why we bother forecasting it at all.
 
