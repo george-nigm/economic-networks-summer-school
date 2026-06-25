@@ -52,4 +52,19 @@ their covariance divided by the product of their standard deviations. It runs fr
 
 $$H^{(l+1)} = \sigma\Big(\underbrace{\tilde{D}^{-1/2}\,\tilde{A}\,\tilde{D}^{-1/2}}_{\text{average over neighbours}}\;\underbrace{H^{(l)}\,W^{(l)}}_{\text{linear transform}}\Big)$$
 
-Here $\tilde{A}=A+I$ is the adjacency matrix with self-loops added, $\tilde{D}$ is its degree matrix (so the left factor is just a normalised neighbour-average), $H^{(l)}$ are the node features at layer $l$, $W^{(l)}$ is the learned weight matrix, and $\sigma$ is a nonlinearity. In words: mix each node with its neighbours, apply a small learned transform, repeat. Stack two layers and a node sees its neighbours' neighbours too, so information spreads along the network. Train it by comparing the predicted next-day volatility against what actually happened and nudging the weights to shrink that error.
+Here $\tilde{A}=A+I$ is the adjacency matrix with self-loops added, $\tilde{D}$ is its degree matrix (so the left factor is just a normalised neighbour-average), $H^{(l)}$ are the node features at layer $l$, $W^{(l)}$ is the learned weight matrix, and $\sigma$ is a nonlinearity. In words: mix each node with its neighbours, apply a small learned transform, repeat. Stack two layers and a node sees its neighbours' neighbours too, so information spreads along the network.
+
+*Worked example, all the way to a forecast.* Suppose the network links ES to NQ and to GC (gold), and today's volatilities are ES = 0.20, NQ = 0.30, GC = 0.40. We want tomorrow's ES volatility.
+
+1. **Average over neighbours** (the left factor; including ES itself via the self-loop):
+$$\tfrac{1}{3}(0.20 + 0.30 + 0.40) = 0.30$$
+ES alone read 0.20, but blended with its agitated neighbours it becomes 0.30.
+
+2. **Linear transform + nonlinearity.** Multiply by the learned weight, say $W = 0.9$, then apply ReLU:
+$$\sigma(0.30 \times 0.9) = 0.27$$
+That is ES's hidden feature after one layer. (A second layer would repeat steps 1–2, pulling in neighbours-of-neighbours.)
+
+3. **Readout.** A final linear layer turns the hidden feature into the prediction. With weight 1.0 and no bias:
+$$\widehat{\text{ES}}_\text{tomorrow} = 0.27$$
+
+So ES read 0.20 today, yet the model forecasts about 0.27 tomorrow, pulled up because its neighbours are running hot. That upward nudge is the spillover the network exists to capture. Training just tweaks $W$ and the readout weights so these forecasts land as close as possible to what volatility actually does next.
