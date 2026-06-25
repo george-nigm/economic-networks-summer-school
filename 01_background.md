@@ -53,9 +53,3 @@ their covariance divided by the product of their standard deviations. It runs fr
 $$H^{(l+1)} = \sigma\Big(\underbrace{\tilde{D}^{-1/2}\,\tilde{A}\,\tilde{D}^{-1/2}}_{\text{average over neighbours}}\;\underbrace{H^{(l)}\,W^{(l)}}_{\text{linear transform}}\Big)$$
 
 Here $\tilde{A}=A+I$ is the adjacency matrix with self-loops added, $\tilde{D}$ is its degree matrix (so the left factor is just a normalised neighbour-average), $H^{(l)}$ are the node features at layer $l$, $W^{(l)}$ is the learned weight matrix, and $\sigma$ is a nonlinearity. In words: mix each node with its neighbours, apply a small learned transform, repeat. Stack two layers and a node sees its neighbours' neighbours too, so information spreads along the network. Train it by comparing the predicted next-day volatility against what actually happened and nudging the weights to shrink that error.
-
-*A tiny example.* Say the network links three assets: ES is connected to NQ and to GC (gold), and today's volatilities are ES = 0.20, NQ = 0.30, GC = 0.10. To update ES, the layer first averages ES with its neighbours (and itself, thanks to the self-loop):
-
-$$\text{ES}_\text{new} = \tfrac{1}{3}(0.20 + 0.30 + 0.10) = 0.20$$
-
-So even though ES alone read 0.20, the layer now describes it together with the company it keeps. (The $\tilde{D}^{-1/2}\cdots\tilde{D}^{-1/2}$ normalisation does this averaging a bit more carefully than a flat mean, down-weighting nodes that have many connections.) That blended number then goes through $W$ and $\sigma$, and the next layer repeats the trick, so ES eventually feels assets it isn't directly wired to. That is the spillover the network is meant to capture: a spike in NQ's volatility nudges ES's forecast even before ES itself moves.
